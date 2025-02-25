@@ -1,6 +1,3 @@
-Aqui está o arquivo `.md` completo, documentando sua API de gerenciamento de alunos, incluindo os endpoints, exemplos de requisições/respostas e detalhes sobre a configuração do PostgreSQL:
-
-```markdown
 # API de Gerenciamento de Alunos
 
 Esta é uma API para gerenciamento de alunos, desenvolvida em Spring Boot e utilizando PostgreSQL como banco de dados. A API permite criar, buscar, listar, atualizar e excluir alunos.
