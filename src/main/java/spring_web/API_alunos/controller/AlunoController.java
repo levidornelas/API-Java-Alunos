@@ -7,17 +7,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring_web.API_alunos.model.Aluno;
-import spring_web.API_alunos.service.AlunosService;
+import spring_web.API_alunos.service.AlunoService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/aluno")
 @Tag(name = "Alunos", description = "API para gerenciamento de alunos")
-public class AlunosController {
+public class AlunoController {
 
     @Autowired
-    private AlunosService service;
+    private AlunoService service;
 
     @Operation(summary = "Salva um novo aluno", description = "Cria um novo aluno e retorna os detalhes salvos.")
     @PostMapping(value = "/save")
@@ -50,7 +50,7 @@ public class AlunosController {
     @Operation(summary = "Atualiza um aluno", description = "Atualiza os dados de um aluno existente.")
     @PutMapping(value = "/update/{id}")
     public ResponseEntity<Aluno> atualizaAluno(@PathVariable Long id, @RequestBody Aluno alunoAtualizado) {
-        Aluno aluno = service.atualizarAluno(id, alunoAtualizado.getNome(), alunoAtualizado.getEmail());
+        Aluno aluno = service.atualizarAluno(alunoAtualizado.getCpf(), id, alunoAtualizado.getNome(), alunoAtualizado.getEmail());
         return ResponseEntity.ok().body(aluno);
     }
 }

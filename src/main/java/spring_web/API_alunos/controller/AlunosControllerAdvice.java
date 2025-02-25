@@ -27,4 +27,13 @@ public class AlunosControllerAdvice extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleExceptionGenerica(Exception e) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Ocorreu um erro inesperado. Tente novamente mais tarde.");
+        response.put("error", e.getClass().getSimpleName());
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
+
 }

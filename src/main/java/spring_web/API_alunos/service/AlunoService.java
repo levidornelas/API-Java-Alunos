@@ -5,18 +5,18 @@ import org.springframework.stereotype.Service;
 import spring_web.API_alunos.exceptions.AlunoNotFoundException;
 import spring_web.API_alunos.exceptions.AlunoNullException;
 import spring_web.API_alunos.model.Aluno;
-import spring_web.API_alunos.repository.AlunosRepository;
+import spring_web.API_alunos.repository.AlunoRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AlunosService {
+public class AlunoService {
     @Autowired
-    private AlunosRepository repository;
+    private AlunoRepository repository;
 
     public Aluno save(Aluno aluno){
-        if(aluno.getNome() == null || aluno.getEmail() == null){
+        if(aluno.getNome() == null || aluno.getEmail() == null || aluno.getCpf() == null){
             throw new AlunoNullException();
         }
         return repository.save(aluno);
@@ -32,18 +32,19 @@ public class AlunosService {
 
     public boolean excluirAluno(Long id){
         if(repository.existsById(id)){
-          repository.deleteById(id);
-          return true;
+            repository.deleteById(id);
+            return true;
         }
         throw new AlunoNotFoundException(id);
     }
 
-    public Aluno atualizarAluno(Long id, String nome, String email){
+    public Aluno atualizarAluno(String cpf, Long id, String nome, String email){
         Optional<Aluno> alunoOptional = repository.findById(id);
         if (alunoOptional.isPresent()){
             Aluno aluno = alunoOptional.get();
-            aluno.setEmail(email);
             aluno.setNome(nome);
+            aluno.setEmail(email);
+            aluno.setCpf(cpf);
             return repository.save(aluno);
         }
         throw new AlunoNotFoundException(id);
