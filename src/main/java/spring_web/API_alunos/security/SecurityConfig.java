@@ -1,4 +1,4 @@
-package spring_web.API_alunos.config;
+package spring_web.API_alunos.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

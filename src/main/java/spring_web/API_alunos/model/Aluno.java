@@ -39,11 +39,30 @@ public class Aluno {
 
     @Override
     public String toString() {
-        return "Alunos{" +
-                "email='" + email + '\'' +
+        return "Aluno{" +
+                "cpf='" + cpf + '\'' +
                 ", id=" + id +
                 ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getEmail() {
