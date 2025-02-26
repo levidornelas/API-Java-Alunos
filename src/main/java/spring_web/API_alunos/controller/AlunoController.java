@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import spring_web.API_alunos.model.Aluno;
+import spring_web.API_alunos.DTOS.AlunoDTO;
 import spring_web.API_alunos.service.AlunoService;
 
 import java.util.List;
@@ -21,36 +21,36 @@ public class AlunoController {
 
     @Operation(summary = "Salva um novo aluno", description = "Cria um novo aluno e retorna os detalhes salvos.")
     @PostMapping(value = "/save")
-    public ResponseEntity<Aluno> salvaAluno(@RequestBody Aluno aluno){
-        aluno = service.save(aluno);
-        return ResponseEntity.status(HttpStatus.CREATED).body(aluno);
+    public ResponseEntity<AlunoDTO> salvaAluno(@RequestBody AlunoDTO alunoDTO) {
+        AlunoDTO savedAluno = service.save(alunoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAluno);
     }
 
     @Operation(summary = "Busca um aluno pelo ID", description = "Retorna um aluno com base no ID fornecido.")
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Aluno> buscaAluno(@PathVariable Long id){
-        Aluno aluno = service.findById(id);
+    public ResponseEntity<AlunoDTO> buscaAluno(@PathVariable Long id) {
+        AlunoDTO aluno = service.findById(id);
         return ResponseEntity.ok().body(aluno);
     }
 
     @Operation(summary = "Lista todos os alunos", description = "Retorna uma lista com todos os alunos cadastrados.")
     @GetMapping
-    public ResponseEntity<List<Aluno>> listaAlunos(){
-        List<Aluno> alunos = service.findall();
+    public ResponseEntity<List<AlunoDTO>> listaAlunos() {
+        List<AlunoDTO> alunos = service.findAll();
         return ResponseEntity.ok().body(alunos);
     }
 
     @Operation(summary = "Exclui um aluno", description = "Deleta um aluno com base no ID informado.")
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<String> deletaAluno(@PathVariable Long id) {
-        service.excluirAluno(id);
+        service.deleteAluno(id);
         return ResponseEntity.ok("Aluno com ID " + id + " excluído com sucesso.");
     }
 
     @Operation(summary = "Atualiza um aluno", description = "Atualiza os dados de um aluno existente.")
     @PutMapping(value = "/update/{id}")
-    public ResponseEntity<Aluno> atualizaAluno(@PathVariable Long id, @RequestBody Aluno alunoAtualizado) {
-        Aluno aluno = service.atualizarAluno(alunoAtualizado.getCpf(), id, alunoAtualizado.getNome(), alunoAtualizado.getEmail());
-        return ResponseEntity.ok().body(aluno);
+    public ResponseEntity<AlunoDTO> atualizarAluno(@PathVariable Long id, @RequestBody AlunoDTO alunoDTO) {
+        AlunoDTO updatedAluno = service.updateAluno(id, alunoDTO);
+        return ResponseEntity.ok().body(updatedAluno);
     }
 }
